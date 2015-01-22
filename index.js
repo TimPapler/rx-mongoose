@@ -57,4 +57,4 @@ function plugin(schema) {
         });
     };
 }
-exports.plugin = plugin;
+module.exports = plugin;
