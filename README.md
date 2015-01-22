@@ -4,5 +4,5 @@ Rx plugin for mongoose
 ## Usage:
 
 ```javascript
-schema.plugin(require('rx-mo	ngoose'));
+schema.plugin(require('rx-mongoose'));
 ```
