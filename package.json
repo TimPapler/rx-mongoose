@@ -1,0 +1,33 @@
+{
+  "name": "rx-mongoose",
+  "description": "A rx wrapper for mongoose.",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "rx": "2.3.x"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "private": true,
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TimPapler/rx-mongoose.git"
+  },
+  "author": {
+    "name": "Tim Papler",
+    "email": "tim@otro.me"
+  },
+  "keywords": [
+    "mongoose",
+    "rx"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "TimPapler",
+      "email": "tim@otro.me"
+    }
+  ]
+}
