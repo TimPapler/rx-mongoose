@@ -8,7 +8,7 @@ function plugin(schema) {
     Statics
      */
     schema.statics.rx_FindOne = function (query) {
-        var that = this;
+        var self = this;
         return Observable.create(function (observer) {
             self.findOne(query, function (err, data) {
                 if (err) {

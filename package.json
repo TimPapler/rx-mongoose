@@ -1,7 +1,7 @@
 {
   "name": "rx-mongoose",
   "description": "A rx wrapper for mongoose.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "dependencies": {
     "rx": "2.3.x"
