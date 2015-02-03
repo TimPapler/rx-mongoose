@@ -1,5 +1,7 @@
 "use strict";
-var Rx = require("rx");
+var Rx = require("rx"),
+    Observable = Rx.Observable,
+    us = require('underscore');
 
 function plugin(schema) {
     /*
@@ -7,8 +9,8 @@ function plugin(schema) {
      */
     schema.statics.rx_FindOne = function (query) {
         var that = this;
-        return Rx.Observable.create(function (observer) {
-            that.findOne(query, function (err, data) {
+        return Observable.create(function (observer) {
+            self.findOne(query, function (err, data) {
                 if (err) {
                     return observer.onError(err);
                 }
@@ -18,9 +20,9 @@ function plugin(schema) {
         });
     };
     schema.statics.rx_Find = function (query) {
-        var that = this;
-        return Rx.Observable.create(function (observer) {
-            that.find(query, function (err, data) {
+        var self = this;
+        return Observable.create(function (observer) {
+            self.find(query, function (err, data) {
                 if (err) {
                     return observer.onError(err);
                 }
@@ -30,9 +32,9 @@ function plugin(schema) {
         });
     };
     schema.statics.rx_Remove = function (query) {
-        var that = this;
-        return Rx.Observable.create(function (observer) {
-            that.remove(query, function (err) {
+        var self = this;
+        return Observable.create(function (observer) {
+            self.remove(query, function (err) {
                 if (err) {
                     return observer.onError(err);
                 }
@@ -41,13 +43,33 @@ function plugin(schema) {
             });
         });
     };
+    schema.statics.rx_FindWithArraysOfOredQueries = function (arrayOfOredQueries) {
+        var self = this;
+        var sources = [];
+        var currentQuery = [];
+        us.each(arrayOfOredQueries, function (query) {
+            currentQuery.push(query);
+            if (currentQuery.length > 4) {
+                sources.push(self.rx_Find({$or: currentQuery}));
+                currentQuery = [];
+            }
+        });
+        if (currentQuery.length > 0) {
+            sources.push(self.rx_Find({$or: currentQuery}));
+        }
+        return Observable.merge(sources)
+            .toArray()
+            .select(function (x){
+                return us.flatten(x);
+            });
+    };
     /*
     Methods
      */
     schema.methods.rx_save = function () {
-        var that = this;
-        return Rx.Observable.create(function (observer) {
-            that.save(function (err, doc) {
+        var self = this;
+        return Observable.create(function (observer) {
+            self.save(function (err, doc) {
                 if (err) {
                     return observer.onError(err);
                 }
