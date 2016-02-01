@@ -1,10 +1,10 @@
 {
   "name": "rx-mongoose",
   "description": "A rx wrapper for mongoose.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "index.js",
   "dependencies": {
-    "rx": "2.3.x"
+    "rx": "4.0.x"
   },
   "engines": {
     "node": ">=0.10.0"
